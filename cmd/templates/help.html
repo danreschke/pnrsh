@@ -1,0 +1,11 @@
+{{template "base" .}}
+
+{{define "main"}}
+<h2>Help</h2>
+
+<h2>Is any data stored by pnr.sh when using this tool?</h2>
+<p>No.</p>
+
+<h2>What does "Coupons Appear To Cover Entire PNR" represent?</h2>
+<p>When "Coupons Appear To Cover Entire PNR" is true, it means that the PNR that was retrieved appears to contain at least the same flights as the displayed ticket. This is a <strong>very basic check</strong> as the full information of the ticket coupons is not available -- this only checks the flight time and origin/destination. If your ticket is in the wrong class of service, this cannot be detected.</p>
+{{end}}

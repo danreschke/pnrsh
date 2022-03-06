@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/pnrsh/pnrsh/pkg/delta/pnr"
 )
@@ -29,7 +30,12 @@ func RetrieveHandler(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Location", "/?error=t")
 		w.WriteHeader(302)
 
-		log.Fatal("shutting down due to PNR error")
+		go func() {
+			time.Sleep(time.Second)
+			log.Fatal("shutting down due to PNR error")
+		}()
+
+		return
 	}
 
 	t := Parse("show.html")

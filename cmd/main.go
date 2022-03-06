@@ -21,6 +21,7 @@ func listenAddress() string {
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", HomeHandler).Methods("GET")
+	r.HandleFunc("/help", HelpHandler).Methods("GET")
 	r.HandleFunc("/retrieve", RetrieveHandler).Methods("POST")
 
 	srv := &http.Server{

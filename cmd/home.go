@@ -15,3 +15,8 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		os.Getenv("HEROKU_SLUG_COMMIT"),
 	})
 }
+
+func HelpHandler(w http.ResponseWriter, r *http.Request) {
+	t := Parse("help.html")
+	t.Execute(w, struct{}{})
+}
