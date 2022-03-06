@@ -18,13 +18,18 @@ func RetrieveHandler(w http.ResponseWriter, r *http.Request) {
 	lastName := r.Form.Get("last_name")
 	confirmationCode := r.Form.Get("confirmation_code")
 
-	log.Println(firstName, lastName, confirmationCode)
+	if len(confirmationCode) != 6 || len(firstName) == 0 || len(lastName) == 0 {
+		w.Header().Add("Location", "/?error=t")
+		w.WriteHeader(302)
+		return
+	}
 
 	retrievedPNR, err := pnr.Retrieve(firstName, lastName, confirmationCode)
 	if err != nil {
 		w.Header().Add("Location", "/?error=t")
 		w.WriteHeader(302)
-		return
+
+		log.Fatal("shutting down due to PNR error")
 	}
 
 	t := Parse("show.html")
