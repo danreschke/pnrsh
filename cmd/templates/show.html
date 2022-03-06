@@ -1,0 +1,145 @@
+{{template "base" .}}
+
+{{define "main"}}
+<div class="container">
+    <h2>Confirmation #{{.ConfirmationCode}}</h2>
+    <hr />
+
+    <div class="row">
+      <div class="col">
+        <h3>Flights</h3>
+        {{range .PNR.Flights}}
+            <h5>{{.OriginAirportCode}} ✈️ {{.DestinationAirportCode}} <span class="badge bg-primary">{{.CurrentActionCode}}</span></h5>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><strong>Status</strong></td>
+                        <td>{{.Status}}</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Distance</strong></td>
+                        <td>{{.Distance}}</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Operating/Marketing Airline</strong></td>
+                        <td>{{.OperatingAirlineCode}}/{{.MarketingAirlineCode}}</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Current Action Code</strong></td>
+                        <td>{{.CurrentActionCode}}</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Previous Action Code</strong></td>
+                        <td>{{.PreviousActionCode}}</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Upgrade Status</strong></td>
+                        <td>{{.UpgradeStatus}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        {{end}}
+
+        <h3>Passengers</h3>
+        {{range .PNR.Passengers}}
+            <div class="card">
+                <div class="card-body">
+                    {{if .CheckedIn}}
+                    <h5>{{.Name}} <span class="badge bg-success">Checked In</span></h5>
+                    {{else}}
+                    <h5>{{.Name}} <span class="badge bg-secondary">Not Checked In</span></h5>
+                    {{end}}
+        
+                    <h6>Filtered SSRs</h6>
+                    <table class="table">
+                        <tbody>
+                            {{range .SSRs}}
+                            <tr>
+                                <td><strong>{{.Type}}</strong></td>
+                                <td>{{.Remark}}</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br />
+        {{end}}
+      </div>
+      <div class="col">
+        <h3>Remarks</h3>
+        <table class="table">
+            <tbody>
+            {{range .PNR.Remarks}}
+                <tr>
+                    <td><strong>{{.RemarkType}}</strong></td>
+                    <td>{{.FreeFormText}}</td>
+                </tr>
+            {{end}}
+            </tbody>
+        </table>
+
+        <h3>Flags</h3>
+        <table class="table">
+            <tbody>
+            {{range .PNR.Flags}}
+                <tr>
+                    <td><strong>{{.Name}}</strong></td>
+                    <td>{{.Value}}</td>
+                </tr>
+            {{end}}
+            </tbody>
+        </table>
+
+        <h3>Tickets</h3>
+        {{range .PNR.Tickets}}
+        <div class="card">
+            <div class="card-body">
+                <h4>{{.Number}}</h4>
+
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td><strong>Status</strong></td>
+                            <td>{{.Status}}</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Issue Date</strong></td>
+                            <td>{{.IssueDate}}</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Expiration Date</strong></td>
+                            <td>{{.ExpirationDate}}</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Passenger</strong></td>
+                            <td>{{.PassengerName}}</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong># of Coupons in Ticket</strong></td>
+                            <td>{{.NumCoupons}}</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Coupons Appear To Cover Entire PNR (experimental)</strong></td>
+                            <td>{{.ValidatedAgainstCoupon}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+        {{end}}
+      </div>
+    </div>
+  </div>
+{{end}}
