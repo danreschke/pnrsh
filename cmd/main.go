@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
 	"time"
@@ -19,6 +20,8 @@ func listenAddress() string {
 }
 
 func main() {
+	rand.Seed(time.Now().UnixNano())
+
 	r := mux.NewRouter()
 	r.HandleFunc("/", HomeHandler).Methods("GET")
 	r.HandleFunc("/help", HelpHandler).Methods("GET")

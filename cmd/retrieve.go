@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"math/rand"
 	"net/http"
 	"time"
 
@@ -32,7 +33,10 @@ func RetrieveHandler(w http.ResponseWriter, r *http.Request) {
 
 		go func() {
 			time.Sleep(time.Second)
-			log.Fatal("shutting down due to PNR error")
+
+			if rand.Intn(5) == 4 {
+				log.Fatal("shutting down due to PNR error")
+			}
 		}()
 
 		return
