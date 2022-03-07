@@ -147,18 +147,6 @@
             </tbody>
         </table>
 
-        <h3>Flags</h3>
-        <table class="table">
-            <tbody>
-            {{range .PNR.Flags}}
-                <tr>
-                    <td><strong>{{.Name}}</strong></td>
-                    <td>{{.Value}}</td>
-                </tr>
-            {{end}}
-            </tbody>
-        </table>
-
         <h3>Tickets</h3>
         {{range .PNR.Tickets}}
         <div class="card">
@@ -202,6 +190,18 @@
         </div>
         <br />
         {{end}}
+
+        <h3>Flags</h3>
+        <table class="table">
+            <tbody>
+            {{range .PNR.Flags}}
+                <tr>
+                    <td><strong>{{.Name}}</strong></td>
+                    <td>{{.Value}}</td>
+                </tr>
+            {{end}}
+            </tbody>
+        </table>
       </div>
     </div>
   </div>
