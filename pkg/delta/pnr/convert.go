@@ -24,6 +24,7 @@ func convertFlights(res RetrievePnrResponse, pnr *PNR) {
 				MarketingAirlineCode:   flight.MarketingAirlineCode,
 				OperatingAirlineCode:   flight.OperatingAirlineCode,
 				UpgradeStatus:          flight.UpgradeStatus,
+				ClassOfService:         flight.ClassesOfService.DomainObjectList.DomainObject.Code,
 			})
 		}
 	}
@@ -89,6 +90,7 @@ func convertFare(res RetrievePnrResponse, pnr *PNR) {
 		TotalTax:          fare.TotalTax,
 		TotalCurrencyCode: fare.TotalCurrencyCode,
 		TotalFare:         fare.TotalFare,
+		FareBasisCode:     fare.FareBasisCode,
 	}
 
 	for _, row := range fare.TaxBreakDownList.FareFaxTable {
@@ -107,4 +109,5 @@ func convertFare(res RetrievePnrResponse, pnr *PNR) {
 
 	pnr.Fare = convertedFare
 	pnr.Fare.EstimatedMQD = estimateMQD(pnr)
+	pnr.Fare.SMCalcLink = generateSmcalcLink(pnr)
 }

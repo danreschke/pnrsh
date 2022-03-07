@@ -25,6 +25,7 @@ type Flight struct {
 	Status                 string
 	MarketingAirlineCode   string
 	OperatingAirlineCode   string
+	ClassOfService         string
 	UpgradeStatus          string
 }
 
@@ -70,6 +71,7 @@ type Fare struct {
 	TotalCurrencyCode string
 	FareBasisCode     string
 	EstimatedMQD      string
+	SMCalcLink        string
 }
 
 // Raw API response from Delta.

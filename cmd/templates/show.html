@@ -3,6 +3,14 @@
 {{define "main"}}
 <div class="container">
     <h2>Confirmation #{{.ConfirmationCode}}</h2>
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link" style="color: black">Tools</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="{{.PNR.Fare.SMCalcLink}}" target="_blank">Calculate Earnings</a>
+        </li>
+    </ul>      
     <hr />
 
     <div class="row">
@@ -40,6 +48,11 @@
                     <tr>
                         <td><strong>Upgrade Status</strong></td>
                         <td>{{.UpgradeStatus}}</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Class of Service</strong></td>
+                        <td>{{.ClassOfService}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -92,6 +105,11 @@
                 <tr>
                     <td><strong>Estimated MQD</strong></td>
                     <td>{{.PNR.Fare.EstimatedMQD}}</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Fare Basis Code</strong></td>
+                    <td>{{.PNR.Fare.FareBasisCode}}</td>
                 </tr>
             </tbody>
         </table>
