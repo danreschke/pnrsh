@@ -34,6 +34,7 @@ type Passenger struct {
 	CustomerID string
 	CheckedIn  bool
 	SSRs       []SSR
+	Status     string
 }
 
 type SSR struct {

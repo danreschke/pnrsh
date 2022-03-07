@@ -36,6 +36,7 @@ func convertPassengers(res RetrievePnrResponse, pnr *PNR) {
 			Name:       pax.Name.FirstName + " " + pax.Name.LastName,
 			CustomerID: pax.CustomerId,
 			CheckedIn:  pax.CheckedIn != "false",
+			Status:     pax.LoyaltyAccounts.DomainObjectList.DomainObject.MembershipStatusCd,
 		}
 
 		for _, ssr := range pax.Ssrs.DomainObjectList.DomainObject {

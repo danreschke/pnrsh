@@ -32,7 +32,35 @@ func estimateMQD(pnr *PNR) string {
 		}
 	}
 
-	return fmt.Sprintf("%s %s", asString(total), pnr.Fare.BaseCurrencyCode)
+	return asString(total)
+}
+
+// Calculate the highest status in the reservation and pass to SMCalc.
+func generateSmcalcStatus(pnr *PNR) (highestStatus string) {
+	for _, pax := range pnr.Passengers {
+		switch pax.Status {
+		case "DM":
+			highestStatus = "diamond"
+		case "PM":
+			if highestStatus != "diamond" {
+				highestStatus = "platinum"
+			}
+		case "GM":
+			if highestStatus != "diamond" && highestStatus != "platinum" {
+				highestStatus = "gold"
+			}
+		case "SM":
+			if highestStatus == "" {
+				highestStatus = "silver"
+			}
+		}
+	}
+
+	if highestStatus == "" {
+		highestStatus = "peon"
+	}
+
+	return highestStatus
 }
 
 func generateSmcalcRoute(pnr *PNR) (out string) {
@@ -57,10 +85,14 @@ func generateSmcalcRoute(pnr *PNR) (out string) {
 		}
 	}
 
+	if pnr.Fare.TotalFare != "" && pnr.Fare.TotalCurrencyCode == "USD" {
+		out += " $" + pnr.Fare.EstimatedMQD
+	}
+
 	return out
 }
 
 func generateSmcalcLink(pnr *PNR) string {
 	route := generateSmcalcRoute(pnr)
-	return fmt.Sprintf("https://fly.qux.us/smcalc/dist.php?route=%s&start_mqm=0&start_rdm=0&default_fare=T&default_carrier=DL&elite=peon", url.QueryEscape(route))
+	return fmt.Sprintf("https://fly.qux.us/smcalc/dist.php?route=%s&start_mqm=0&start_rdm=0&default_fare=T&default_carrier=DL&elite=%s", url.QueryEscape(route), generateSmcalcStatus(pnr))
 }
