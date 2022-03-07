@@ -65,6 +65,11 @@ func generateSmcalcStatus(pnr *PNR) (highestStatus string) {
 
 func generateSmcalcRoute(pnr *PNR) (out string) {
 	var fallbackClass string
+
+	// We only know the current PNR fare class, which is not useful when it's
+	// a longer two-character code like SU -- which just implies a C+ upgrade.
+	// As a result, we use the fare basis code as the fallback when we hit
+	// a long fare class in the PNR.
 	if len(pnr.Fare.FareBasisCode) > 0 {
 		fallbackClass = string(pnr.Fare.FareBasisCode[0])
 	}
