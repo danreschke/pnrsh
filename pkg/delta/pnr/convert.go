@@ -25,6 +25,9 @@ func convertFlights(res RetrievePnrResponse, pnr *PNR) {
 				OperatingAirlineCode:   flight.OperatingAirlineCode,
 				UpgradeStatus:          flight.UpgradeStatus,
 				ClassOfService:         flight.ClassesOfService.DomainObjectList.DomainObject.Code,
+				ScheduledDeparture:     flight.ScheduledDepartureDateTime,
+				ScheduledArrival:       flight.ScheduledArrivalDateTime,
+				FlightNumber:           flight.FlightNo,
 			})
 		}
 	}

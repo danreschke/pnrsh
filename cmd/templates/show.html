@@ -17,12 +17,22 @@
       <div class="col">
         <h3>Flights</h3>
         {{range .PNR.Flights}}
-            <h5>{{.OriginAirportCode}} ✈️ {{.DestinationAirportCode}} <span class="badge bg-primary">{{.CurrentActionCode}}</span></h5>
+            <h5>{{.MarketingAirlineCode}}{{.FlightNumber}} {{.OriginAirportCode}} ✈️ {{.DestinationAirportCode}} <span class="badge bg-primary">{{.CurrentActionCode}}</span></h5>
             <table class="table">
                 <tbody>
                     <tr>
                         <td><strong>Status</strong></td>
                         <td>{{.Status}}</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Scheduled Departure</strong></td>
+                        <td>{{.ScheduledDeparture}}</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Scheduled Arrival</strong></td>
+                        <td>{{.ScheduledArrival}}</td>
                     </tr>
 
                     <tr>
@@ -63,9 +73,9 @@
             <div class="card">
                 <div class="card-body">
                     {{if .CheckedIn}}
-                    <h5>{{.Name}} <span class="badge bg-success">Checked In</span></h5>
+                    <h5>{{.Name}} <span class="badge bg-success">Checked In</span> <span class="badge bg-primary">{{.Status}}</span></h5>
                     {{else}}
-                    <h5>{{.Name}} <span class="badge bg-secondary">Not Checked In</span></h5>
+                    <h5>{{.Name}} <span class="badge bg-secondary">Not Checked In</span> <span class="badge bg-primary">{{.Status}}</span></h5>
                     {{end}}
         
                     <h6>Filtered SSRs</h6>

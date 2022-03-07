@@ -27,6 +27,9 @@ type Flight struct {
 	OperatingAirlineCode   string
 	ClassOfService         string
 	UpgradeStatus          string
+	ScheduledDeparture     string
+	ScheduledArrival       string
+	FlightNumber           string
 }
 
 type Passenger struct {
