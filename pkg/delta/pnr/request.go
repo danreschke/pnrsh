@@ -4,8 +4,11 @@ import (
 	"encoding/xml"
 	"errors"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 	"strings"
+	"time"
 )
 
 const (
@@ -56,6 +59,12 @@ func sendRequest(firstName string, lastName string, confirmationCode string) ([]
 	res, err := client.Do(req)
 
 	if res.StatusCode != 200 {
+		go func() {
+			time.Sleep(time.Second)
+			log.Println("shutting down to non-200 PNR response", res.StatusCode)
+			os.Exit(0)
+		}()
+
 		return []byte{}, errors.New("status code was not 200")
 	}
 

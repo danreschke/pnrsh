@@ -1,10 +1,7 @@
 package main
 
 import (
-	"log"
-	"math/rand"
 	"net/http"
-	"time"
 
 	"github.com/pnrsh/pnrsh/pkg/delta/pnr"
 )
@@ -30,15 +27,6 @@ func RetrieveHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.Header().Add("Location", "/?error=t")
 		w.WriteHeader(302)
-
-		go func() {
-			time.Sleep(time.Second)
-
-			if rand.Intn(5) == 4 {
-				log.Fatal("shutting down due to PNR error")
-			}
-		}()
-
 		return
 	}
 
