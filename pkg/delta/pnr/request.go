@@ -86,5 +86,7 @@ func convertResponse(res RetrievePnrResponse) (pnr PNR) {
 	convertPassengers(res, &pnr)
 	convertFlags(res, &pnr)
 	convertTickets(res, &pnr)
+	convertFare(res, &pnr)
+
 	return pnr
 }

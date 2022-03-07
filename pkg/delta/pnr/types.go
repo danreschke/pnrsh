@@ -8,6 +8,7 @@ type PNR struct {
 	Passengers []Passenger
 	Flags      []Flag
 	Tickets    []Ticket
+	Fare       Fare
 }
 
 type Remark struct {
@@ -53,6 +54,22 @@ type Ticket struct {
 	PassengerName          string
 	NumCoupons             uint64
 	ValidatedAgainstCoupon bool
+}
+
+type Fare struct {
+	BaseCurrencyCode string
+	BaseFare         string
+	TotalTax         string
+	TotalFare        string
+	TaxRows          []struct {
+		TaxType           string
+		Amount            string
+		Currency          string
+		CarrierImposedFee bool
+	}
+	TotalCurrencyCode string
+	FareBasisCode     string
+	EstimatedMQD      string
 }
 
 // Raw API response from Delta.

@@ -79,3 +79,32 @@ func convertTickets(res RetrievePnrResponse, pnr *PNR) {
 		}
 	}
 }
+
+func convertFare(res RetrievePnrResponse, pnr *PNR) {
+	fare := res.TripsResponse.Journey.Pnr.TotalFare
+
+	convertedFare := Fare{
+		BaseCurrencyCode:  fare.BaseCurrencyCode,
+		BaseFare:          fare.BaseFare,
+		TotalTax:          fare.TotalTax,
+		TotalCurrencyCode: fare.TotalCurrencyCode,
+		TotalFare:         fare.TotalFare,
+	}
+
+	for _, row := range fare.TaxBreakDownList.FareFaxTable {
+		convertedFare.TaxRows = append(convertedFare.TaxRows, struct {
+			TaxType           string
+			Amount            string
+			Currency          string
+			CarrierImposedFee bool
+		}{
+			row.TaxType,
+			row.Amount,
+			row.Currency,
+			row.CarrierImposedFee != "false",
+		})
+	}
+
+	pnr.Fare = convertedFare
+	pnr.Fare.EstimatedMQD = estimateMQD(pnr)
+}
