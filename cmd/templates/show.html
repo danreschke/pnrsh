@@ -17,7 +17,7 @@
       <div class="col">
         <h3>Flights</h3>
         {{range .PNR.Flights}}
-            <h5>{{.MarketingAirlineCode}}{{.FlightNumber}} {{.OriginAirportCode}} ✈️ {{.DestinationAirportCode}} <span class="badge bg-primary">{{.CurrentActionCode}}</span></h5>
+            <h5><strong>{{.MarketingAirlineCode}}{{.FlightNumber}}</strong> {{.OriginAirportCode}} ✈️ {{.DestinationAirportCode}} <span class="badge bg-primary">{{.CurrentActionCode}}</span></h5>
             <table class="table">
                 <tbody>
                     <tr>
