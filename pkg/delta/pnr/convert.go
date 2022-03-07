@@ -2,6 +2,13 @@ package pnr
 
 import "strings"
 
+var (
+	alwaysCarrierImposed = map[string]bool{
+		"YQ": true,
+		"YR": true,
+	}
+)
+
 func convertRemarks(res RetrievePnrResponse, pnr *PNR) {
 	for _, remark := range res.TripsResponse.Journey.Pnr.Remarks.DomainObjectList.DomainObject {
 		pnr.Remarks = append(pnr.Remarks, Remark{
@@ -98,6 +105,8 @@ func convertFare(res RetrievePnrResponse, pnr *PNR) {
 	}
 
 	for _, row := range fare.TaxBreakDownList.FareFaxTable {
+		carrierImposed := row.CarrierImposedFee != "false" || alwaysCarrierImposed[row.TaxType]
+
 		convertedFare.TaxRows = append(convertedFare.TaxRows, struct {
 			TaxType           string
 			Amount            string
@@ -107,7 +116,7 @@ func convertFare(res RetrievePnrResponse, pnr *PNR) {
 			row.TaxType,
 			row.Amount,
 			row.Currency,
-			row.CarrierImposedFee != "false",
+			carrierImposed,
 		})
 	}
 

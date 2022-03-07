@@ -6,13 +6,6 @@ import (
 	"strconv"
 )
 
-var (
-	alwaysCarrierImposed = map[string]bool{
-		"YQ": true,
-		"YR": true,
-	}
-)
-
 func asFloat(n string) float64 {
 	s, _ := strconv.ParseFloat(n, 64)
 	return s
@@ -32,9 +25,7 @@ func estimateMQD(pnr *PNR) string {
 	total += asFloat(pnr.Fare.BaseFare)
 
 	for _, row := range pnr.Fare.TaxRows {
-		carrierImposed := row.CarrierImposedFee || alwaysCarrierImposed[row.TaxType]
-
-		if carrierImposed && row.Currency == "USD" {
+		if row.CarrierImposedFee && row.Currency == "USD" {
 			total += asFloat(row.Amount)
 		} else if row.Currency != "USD" {
 			return "unknown currency"
